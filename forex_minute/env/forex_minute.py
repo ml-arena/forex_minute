@@ -2,7 +2,7 @@ import numpy as np
 import gymnasium as gym
 from gymnasium import spaces
 from typing import Optional, Dict, Any, List, Tuple
-from datetime import datetime
+from datetime import datetime, timedelta
 from .renderer import ForexMinuteRenderer
 
 class ForexMinuteEnv(gym.Env):
@@ -62,11 +62,11 @@ class ForexMinuteEnv(gym.Env):
 
     def _load_sample_data(self):
         """Load sample data for testing purposes."""
-        self.closes = [1.0657 for _ in range(12)]  # Sample static price
-        base_time = datetime.strptime("2024-04-22T23:00:00", '%Y-%m-%dT%H:%M:%S')
+        self.closes = [np.random.uniform(0.0, 1.0) for _ in range(2880)]  # Sample static price for 48 hours
+        base_time = datetime.strptime("2024-04-22T00:00:00", '%Y-%m-%dT%H:%M:%S')
         self.timestamps = [
-            base_time.replace(minute=base_time.minute + i)
-            for i in range(12)
+            base_time + timedelta(minutes=i)
+            for i in range(2880)
         ]
 
     def _process_initial_info(self, initial_info: Dict[str, Any]):

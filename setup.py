@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="forex_minute",
-    version="0.1",
+    version="0.2",
     description="Forex Minute Environment",
     packages=find_packages(),
     package_data={
